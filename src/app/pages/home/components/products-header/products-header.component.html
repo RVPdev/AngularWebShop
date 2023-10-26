@@ -1,11 +1,60 @@
+<!-- Main card container -->
 <mat-card class="mb-4">
+  
+  <!-- Flex container for sorting and display options -->
   <div class="flex justify-between">
+    
+    <!-- Sorting options -->
     <div>
-      <button mat-button [matMenuTriggerFor]="sortByMenu">Sort by {{sort}}</button>
+      <!-- Button to trigger sorting menu -->
+      <button mat-button [matMenuTriggerFor]="sortByMenu">
+        Sort by {{ sort }}
+      </button>
+      
+      <!-- Sorting menu with options -->
       <mat-menu #sortByMenu="matMenu">
+        <!-- Sort in descending order -->
         <button (click)="onSortUpdate('desc')" mat-menu-item>desc</button>
+        <!-- Sort in ascending order -->
         <button (click)="onSortUpdate('asc')" mat-menu-item>asc</button>
       </mat-menu>
+    </div>
+
+    <!-- Display options -->
+    <div class="flex items-center">
+      
+      <!-- Item count options -->
+      <div>
+        <!-- Button to trigger item count menu -->
+        <button mat-button [matMenuTriggerFor]="menu">
+          Show {{ itemShowCount }}
+          <mat-icon>expand_more</mat-icon>
+        </button>
+        
+        <!-- Item count menu with options -->
+        <mat-menu #menu="matMenu">
+          <!-- Show 12 items -->
+          <button (click)="onItemsUpdated(12)" mat-menu-item>12</button>
+          <!-- Show 24 items -->
+          <button (click)="onItemsUpdated(24)" mat-menu-item>24</button>
+          <!-- Show 36 items -->
+          <button (click)="onItemsUpdated(36)" mat-menu-item>36</button>
+        </mat-menu>
+      </div>
+      
+      <!-- Column layout options -->
+      <!-- Single column view -->
+      <button (click)="onColumnsUpdated(1)">
+        <mat-icon>view_list</mat-icon>
+      </button>
+      <!-- Three column view -->
+      <button (click)="onColumnsUpdated(3)">
+        <mat-icon>view_module</mat-icon>
+      </button>
+      <!-- Four column view -->
+      <button (click)="onColumnsUpdated(4)">
+        <mat-icon>view_comfy</mat-icon>
+      </button>
     </div>
   </div>
 </mat-card>
