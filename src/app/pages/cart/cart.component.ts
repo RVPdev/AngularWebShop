@@ -27,11 +27,11 @@ export class CartComponent implements OnInit {
   // displayedColumns: Defines the columns to be displayed in the cart table
   displayedColumns: Array<string> = [
     "product", // Column for product image
-    "name", // Column for product name
-    "price", // Column for product price
-    "quanitity", // Column for product quantity (typo in 'quantity')
-    "total", // Column for the total price of the item (price * quantity)
-    "action", // Column for actions like remove or edit
+    // "name", // Column for product name
+    // "price", // Column for product price
+    // "quanitity", // Column for product quantity (typo in 'quantity')
+    // "total", // Column for the total price of the item (price * quantity)
+    // "action", // Column for actions like remove or edit
   ];
 
   // Constructor function for the CartComponent class
