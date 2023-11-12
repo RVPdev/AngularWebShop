@@ -1,5 +1,7 @@
 // Import the necessary Angular modules
 import { Component, OnInit } from "@angular/core";
+import { Product } from "src/app/models/product.model";
+import { CartService } from "src/app/services/cart.service";
 
 const ROWS_HEIGHT: { [id: number]: number } = { 1: 400, 3: 355, 4: 350 };
 
@@ -19,7 +21,7 @@ export class HomeComponent implements OnInit {
   category: string | undefined;
 
   // Constructor (currently empty)
-  constructor() {}
+  constructor(private cartService: CartService) {}
 
   // OnInit lifecycle hook (currently empty)
   ngOnInit(): void {}
@@ -35,7 +37,13 @@ export class HomeComponent implements OnInit {
     this.category = newCategory;
   }
 
-  onAddToCart(): void {
-    
+  onAddToCart(product: Product): void {
+    this.cartService.addToCart({
+      product: product.image,
+      name: product.title,
+      price: product.price,
+      quantity: 1,
+      id: product.id,
+    });
   }
 }
