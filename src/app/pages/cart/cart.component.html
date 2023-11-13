@@ -42,7 +42,7 @@
       <th mat-header-cell *matHeaderCellDef="">Quantity</th>
       <td mat-cell *matCellDef="let element">
         <!-- Quantity adjustment buttons -->
-        <button mat-icon-button>
+        <button mat-icon-button (click)="onRemoveQuantity(element)">
           <mat-icon>remove</mat-icon>
         </button>
         <!-- Displays quantity -->
