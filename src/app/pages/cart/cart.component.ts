@@ -51,4 +51,8 @@ export class CartComponent implements OnInit {
     // Method to calculate total of cart
     return this.cartService.getTotal(items);
   }
+
+  onClearCart(): void {
+    this.cartService.clearCart();
+  }
 }
