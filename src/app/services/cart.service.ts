@@ -58,4 +58,5 @@ export class CartService {
     this.cart.next({ items: filteredItems });
     this._snackBar.open("1 item removed from cart.", "Ok", { duration: 3000 });
   }
+
 }
