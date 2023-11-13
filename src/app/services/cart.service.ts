@@ -38,22 +38,40 @@ export class CartService {
     this._snackBar.open("1 item added to cart.", "Ok", { duration: 3000 });
   }
 
+  /**
+   * Calculates the total price of all items in the cart.
+   * @param items - Array of CartItem objects.
+   * @returns The total price as a number.
+   */
   getTotal(items: Array<CartItem>): number {
-    // Method to calculate total of cart
+    // Maps each item to its total price (price * quantity), then reduces the array to a single total sum
     return items
       .map((item) => item.price * item.quantity)
       .reduce((prev, current) => prev + current, 0);
   }
 
+  /**
+   * Clears all items from the cart.
+   */
   clearCart(): void {
+    // Sets the cart's items to an empty array
     this.cart.next({ items: [] });
+    // Displays a snack bar notification that the cart has been cleared
     this._snackBar.open("Cart is cleared", "Ok", { duration: 3000 });
   }
 
+  /**
+   * Removes a specific item from the cart.
+   * @param item - The item to be removed.
+   * @param update - Boolean to indicate whether to update the cart and show notification.
+   * @returns The updated array of CartItem objects.
+   */
   removeFromCart(item: CartItem, update = true): Array<CartItem> {
+    // Filters out the item to be removed from the cart's items
     const filteredItems = this.cart.value.items.filter(
       (_item) => _item.id !== item.id
     );
+    // Updates the cart and shows a snack bar notification if 'update' is true
     if (update) {
       this.cart.next({ items: filteredItems });
       this._snackBar.open("1 item removed from cart.", "Ok", {
@@ -64,12 +82,18 @@ export class CartService {
     return filteredItems;
   }
 
+  /**
+   * Decreases the quantity of a specific item in the cart. If quantity reaches 0, removes the item.
+   * @param item - The item for which the quantity needs to be decreased.
+   */
   removeQuantity(item: CartItem): void {
     let itemForRemoval: CartItem | undefined;
 
+    // Iterates through each item, decreasing its quantity if it matches the specified item
     let filteredItems = this.cart.value.items.map((_item) => {
       if (_item.id === item.id) {
         _item.quantity--;
+        // Mark the item for removal if quantity reaches 0
         if (_item.quantity === 0) {
           itemForRemoval = _item;
         }
@@ -77,10 +101,13 @@ export class CartService {
       return _item;
     });
 
+    // If an item is marked for removal, remove it from the cart
     if (itemForRemoval) {
       filteredItems = this.removeFromCart(itemForRemoval, false);
     }
+    // Update the cart with the new list of items
     this.cart.next({ items: filteredItems });
+    // Display a notification about the item removal
     this._snackBar.open("1 item removed from cart.", "Ok", { duration: 3000 });
   }
 }
