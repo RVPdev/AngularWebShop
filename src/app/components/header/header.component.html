@@ -24,11 +24,14 @@
       </div>
 
       <!-- List of items in the cart -->
-      <div class="py-3">
+      <div *ngIf="cart.items.length" class="py-3">
         <!-- Single cart item -->
-        <div class="flex justify-between font-light mb-2">
-          Keyboard x 1
-          <span class="font-bold">{{ "150" | currency }}</span>
+        <div
+          class="flex justify-between font-light mb-2"
+          *ngFor="let item of cart.items"
+        >
+          {{item.name}} x {{item.quantity}}
+          <span class="font-bold">{{ item.price| currency }}</span>
         </div>
         <!-- Add more cart items here in the same format -->
       </div>
@@ -36,13 +39,13 @@
       <!-- Total price of items in the cart -->
       <div class="flex justify-between py-3 font-light">
         Total:
-        <span class="font-bold">{{ "450" | currency }}</span>
+        <span class="font-bold">{{ getTotal(cart.items) | currency }}</span>
       </div>
 
       <!-- Cart action buttons -->
       <div class="pt-3 flex justify-between">
         <!-- Remove all items from cart -->
-        <button class="bg-rose-600 text-white rounded-full w-9 h-9">
+        <button class="bg-rose-600 text-white rounded-full w-9 h-9" (click)="onClearCart()" >
           <mat-icon>remove_shopping_cart</mat-icon>
         </button>
         <!-- Go to cart page -->

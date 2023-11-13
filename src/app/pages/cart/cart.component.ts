@@ -1,6 +1,7 @@
 // Import necessary Angular core modules and custom models
 import { Component, OnInit } from "@angular/core";
 import { Cart, CartItem } from "src/app/models/cart.model";
+import { CartService } from "src/app/services/cart.service";
 
 // @Component decorator defines metadata for the CartComponent
 @Component({
@@ -35,16 +36,15 @@ export class CartComponent implements OnInit {
   ];
 
   // Constructor function for the CartComponent class
-  constructor() {}
+  constructor(private cartService: CartService) {}
 
   // ngOnInit lifecycle hook to initialize component properties
   ngOnInit(): void {
     this.dataSource = this.cart.items; // Assigning the cart items to dataSource for rendering
   }
 
-  getTotal(items: Array<CartItem>): number { // Method to calculate total of cart
-    return items
-      .map((item) => item.price * item.quantity)
-      .reduce((prev, current) => prev + current, 0);
+  getTotal(items: Array<CartItem>): number {
+    // Method to calculate total of cart
+    return this.cartService.getTotal(items);
   }
 }

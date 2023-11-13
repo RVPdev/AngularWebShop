@@ -35,9 +35,18 @@ export class CartService {
     this.cart.next({ items });
 
     // Display a snack bar notification
-    this._snackBar.open('1 item added to cart.', 'Ok', {duration: 3000});
+    this._snackBar.open("1 item added to cart.", "Ok", { duration: 3000 });
+  }
 
-    // Logging the current state of the cart to the console (useful for debugging)
-    console.log(this.cart.value);
+  getTotal(items: Array<CartItem>): number {
+    // Method to calculate total of cart
+    return items
+      .map((item) => item.price * item.quantity)
+      .reduce((prev, current) => prev + current, 0);
+  }
+
+  clearCart(): void {
+    this.cart.next({ items: [] });
+    this._snackBar.open("Cart is cleared", "Ok", { duration: 3000 });
   }
 }
