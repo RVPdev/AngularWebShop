@@ -11,6 +11,8 @@ export class ProductsHeaderComponent implements OnInit {
   
   // Output event emitter for column count changes
   @Output() columsCountChange = new EventEmitter<number>();
+  @Output() itemsCountChange = new EventEmitter<number>();
+  @Output() sortChange = new EventEmitter<string>();
 
   // Default sorting order
   sort = "desc";
@@ -27,11 +29,13 @@ export class ProductsHeaderComponent implements OnInit {
   // Method to update sorting order
   onSortUpdate(newSort: string): void {
     this.sort = newSort;
+    this.sortChange.emit(newSort)
   }
 
   // Method to update the number of items to show
   onItemsUpdated(count: number): void {
     this.itemShowCount = count;
+    this.itemsCountChange.emit(count)
   }
 
   // Method to update the number of columns to display
