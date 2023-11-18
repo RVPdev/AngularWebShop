@@ -25,16 +25,22 @@ export class StoreService {
    * @param sort - The sorting order of products. Default is descending.
    * @returns An Observable of an array of Product objects.
    */
-  getAllProducts(limit = "12", sort = "desc"): Observable<Array<Product>> {
+  getAllProducts(
+    limit = "12",
+    sort = "desc",
+    category?: string
+  ): Observable<Array<Product>> {
     // Makes a GET request to the store API to fetch products with the specified limit and sorting order.
     return this.httpClient.get<Array<Product>>(
-      `${STORE_BASE_URL}/products?sort=${sort}&limit=${limit}`
+      `${STORE_BASE_URL}/products${
+        category ? "/category/" + category : ""
+      }?sort=${sort}&limit=${limit}`
     );
   }
 
   getAllCategories(): Observable<Array<string>> {
     return this.httpClient.get<Array<string>>(
       `${STORE_BASE_URL}/products/categories`
-    )
+    );
   }
 }
